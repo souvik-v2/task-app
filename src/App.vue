@@ -62,7 +62,7 @@
         <th>{{ key }}</th>
         <td>{{ value }}</td>
       </tr>
-    </table>  
+    </table>
     <button @click="showFormData = true">Back</button>
   </div>
 </template>
@@ -95,18 +95,23 @@ export default {
         this.isValidPass = false;
         return false;
       } else {
-
-        //console.log("userName ", this.username);
-        //console.log("gender ", this.password);
-        //this.showFormData = false,
         //api call to validate data
         axios.get("../../../data.jason", this.formData).then((res) => {
           //console.log(res.data);
           for (var i = 0; i < res.data.length; i++) {
-            if (res.data[i].username === this.formData.username) {
-                console.log(res.data[i]);
-                this.info = res.data[i];
+            if (
+              res.data[i].username === this.formData.username &&
+              res.data[i].password === this.formData.password
+            ) {
+              console.log(res.data[i]);
+              this.info = res.data[i];
+              this.isValidUser = true;
+              this.isValidPass = true;
             }
+          }
+          
+          if (!this.isValidUser && !this.isValidPass) {
+            return false;
           }
         });
         this.showFormData = false;
