@@ -86,6 +86,7 @@ export default {
       isValidUser: true,
       isValidPass: true,
       info: "",
+      isInfo: 0
     };
   },
   methods: {
@@ -105,17 +106,20 @@ export default {
             ) {
               console.log(res.data[i]);
               this.info = res.data[i];
-              this.isValidUser = true;
-              this.isValidPass = true;
+              this.isInfo = this.isInfo+1;
             }
           }
-          
-          if (!this.isValidUser && !this.isValidPass) {
+          if (this.isInfo === 0) {
+            //console.log(this.info);
             return false;
+          } else {
+            console.log(this.isInfo);
+            this.showFormData = false;
+            this.$emit("change-name", this.info);
           }
         });
-        this.showFormData = false;
-        this.$emit("change-name", this.info);
+        
+
       }
     },
     validateInput() {
