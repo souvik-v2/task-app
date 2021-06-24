@@ -1,81 +1,35 @@
 <template>
-  <div class="container" v-if="showFormData">
-    <div class="col-md-12">
-      <form @submit.prevent="onSubmit()">
-        <div class="row">
-          <div class="form-group">
-            <label
-              for="username"
-              id="username"
-              class="username"
-              :class="{ invalidLabel: !isValidUser }"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              @blur="validateInput"
-              class="form-control"
-              :style="{ borderColor: !isValidUser ? 'red' : 'black' }"
-              v-model="formData.username"
-            />
-            <p v-if="!isValidUser" style="color: red">
-              Please enter the valid username !!!
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <label
-              for="password"
-              id="password"
-              class="password"
-              :class="{ invalidLabel: !isValidPass }"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              @blur="validateInput"
-              class="form-control"
-              :style="{ borderColor: !isValidPass ? 'red' : 'black' }"
-              v-model="formData.password"
-            />
-            <p v-if="!isValidUser" style="color: red">
-              Please enter the valid password !!!
-            </p>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-      </form>
+    <!-- header -->
+    <div class="header">
+        <h1>TaskApp</h1>
     </div>
-  </div>
 
-  <div v-else>
-    <!--<forms-details @change-name="showFormDataInParent"></forms-details>-->
-    <table>
-      <tr v-for="(value, key) in info" :key="value.id">
-        <th>{{ key }}</th>
-        <td>{{ value }}</td>
-      </tr>
-    </table>
-    <button @click="showFormData = true">Back</button>
-  </div>
+    <!-- container -->
+    <div class="col-md-12">
+      <nav-details></nav-details>
+      <forms-details></forms-details>
+      <user-details></user-details>
+    </div> 
+
+    <!-- footer -->
+    <div class="footer">
+        <p>TaskApp@souvik-v2</p>
+    </div>
 </template>
 
-
 <script>
-//import FormsDetails from "./components/FormsDetails.vue";
+import NavDetails from "./components/NavDetails.vue";
+import FormsDetails from "./components/FormsDetails.vue";
+import UserDetails from "./components/UserDetails.vue";
+
 import axios from "axios";
 
 export default {
-  /*components: {
+  components: {
+    NavDetails,
     FormsDetails,
-  },*/
+    UserDetails
+  },
   data() {
     return {
       formData: {
@@ -144,5 +98,34 @@ export default {
 <style scoped>
 .invalidLabel {
   color: red;
+}
+section {
+  max-width: 30rem;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+}
+
+h2 {
+  text-align: center;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  max-width: 980px;
+}
+
+.header, .footer {
+  padding: 20px 10px;
+  background-color: #318166;
+  color: #c7c7bb;
+  text-align: center;
 }
 </style>
